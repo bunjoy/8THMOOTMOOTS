@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HAPPIIII 8TH MOTMOTTT 🐾</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Fredoka+One&family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        siamese: {
+                            cream: '#fdfbf7',
+                            ivory: '#f8f4ec',
+                            beige: '#f3ece1',
+                            seal: '#3a2822',
+                            darkSeal: '#251915',
+                            rose: '#e8a598',
+                            softRose: '#fcf0ed',
+                            sapphire: '#1b6b93',
+                            brightBlue: '#2f8dbd',
+                            eyeGlow: '#53b1e3'
+                        }
+                    },
+                    fontFamily: {
+                        handwriting: ['Dancing Script', 'cursive'],
+                        sans: ['Quicksand', 'sans-serif'],
+                        playful: ['Fredoka One', 'cursive']
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0px) rotate(0deg)' },
+                            '50%': { transform: 'translateY(-10px) rotate(3deg)' }
+                        },
+                        purr: {
+                            '0%, 100%': { transform: 'scale(1)' },
+                            '50%': { transform: 'scale(1.02)' }
+                        },
+                        tailWag: {
+                            '0%, 100%': { transform: 'rotate(0deg)' },
+                            '50%': { transform: 'rotate(12deg)' }
+                        },
+                        heartBeat: {
+                            '0%, 100%': { transform: 'scale(1)' },
+                            '50%': { transform: 'scale(1.18)' }
+                        }
+                    },
+                    animation: {
+                        float: 'float 4s ease-in-out infinite',
+                        purr: 'purr 3s ease-in-out infinite',
+                        tailWag: 'tailWag 2s ease-in-out infinite',
+                        heartBeat: 'heartBeat 1.5s infinite'
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            background-color: #fdfbf7;
+            color: #3a2822;
+            font-family: 'Quicksand', sans-serif;
+            overflow-x: hidden;
+            touch-action: manipulation;
+        }
+
+        .perspective-1000 { perspective: 1000px; }
+        .transform-style-3d { transform-style: preserve-3d; }
+        .backface-hidden {
+            backface-visibility: hidden;
+            -webkit-backface-visibility: hidden;
+        }
+        .rotate-y-180 { transform: rotateY(180deg); }
+
+        #particle-canvas {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100vw; height: 100vh;
+            pointer-events: none !important;
+            z-index: 10;
+        }
+
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #fdfbf7; }
+        ::-webkit-scrollbar-thumb { background: #e8a598; border-radius: 999px; }
+
+        .blue-eye-glow { filter: drop-shadow(0 0 5px #2f8dbd); }
+        .rose-glow { filter: drop-shadow(0 0 8px rgba(232, 165, 152, 0.6)); }
+    </style>
+</head>
+<body class="relative min-h-screen">
+
+    <!-- Particle Overlay Canvas -->
+    <canvas id="particle-canvas"></canvas>
+
+    <div class="fixed inset-0 pointer-events-none opacity-20 z-0 overflow-hidden" aria-hidden="true">
+        <i class="fa-solid fa-paw absolute top-10 left-[8%] text-siamese-seal text-2xl animate-float"></i>
+        <i class="fa-solid fa-heart absolute top-1/4 left-[88%] text-siamese-rose text-3xl animate-float" style="animation-delay: 1s;"></i>
+        <i class="fa-solid fa-paw absolute top-2/3 left-[5%] text-siamese-sapphire text-xl animate-float" style="animation-delay: 1.5s;"></i>
+        <i class="fa-solid fa-heart absolute bottom-20 left-[82%] text-siamese-seal text-2xl animate-float" style="animation-delay: 2s;"></i>
+    </div>
+
+    <!-- Floating Audio Toggle Button -->
+    <div class="fixed bottom-6 right-6 z-40">
+        <button id="audio-toggle" onclick="toggleAudio()" title="Toggle Romantic Music" aria-label="Toggle Romantic Music" class="w-12 h-12 rounded-full bg-white text-siamese-seal shadow-xl flex items-center justify-center hover:scale-110 active:scale-95 hover:bg-siamese-softRose transition duration-200 border-2 border-siamese-beige cursor-pointer">
+            <i id="audio-icon" class="fa-solid fa-music text-siamese-rose text-lg"></i>
+        </button>
+    </div>
+
+    <header class="relative z-20 w-full py-5 px-6 flex justify-between items-center max-w-6xl mx-auto">
+        <div class="flex items-center gap-3">
+            <svg class="w-9 h-9" viewBox="0 0 100 100" fill="none">
+                <path d="M20 30 L35 5 L50 35 Z" fill="#3a2822"/>
+                <path d="M80 30 L65 5 L50 35 Z" fill="#3a2822"/>
+                <circle cx="50" cy="55" r="35" fill="#f8f4ec"/>
+                <ellipse cx="50" cy="62" rx="20" ry="15" fill="#3a2822"/>
+                <ellipse cx="40" cy="52" rx="5" ry="7" fill="#1b6b93" class="blue-eye-glow"/>
+                <ellipse cx="60" cy="52" rx="5" ry="7" fill="#1b6b93" class="blue-eye-glow"/>
+            </svg>
+            <span class="font-playful text-2xl text-siamese-seal tracking-wide"> <span class="text-siamese-rose">🐾</span></span>
+        </div>
+        <div class="text-xs sm:text-sm font-bold text-siamese-seal bg-white/80 backdrop-blur px-4 py-2 rounded-full border border-siamese-beige shadow-sm">
+            🐾 For: <span class="text-siamese-sapphire font-extrabold">My Chubs</span>
+        </div>
+    </header>
+
+    <main class="relative z-20 max-w-5xl mx-auto px-4 pb-24 space-y-16">
+
+        <!-- Hero Section -->
+        <section class="min-h-[70vh] flex flex-col lg:flex-row items-center justify-center gap-10 py-8">
+            <div class="flex-1 text-center lg:text-left space-y-5">
+                <div class="inline-flex items-center gap-2 px-4 py-1.5 bg-siamese-softRose text-siamese-seal rounded-full text-xs font-bold border border-siamese-rose/40 shadow-sm animate-bounce">
+                    <i class="fa-solid fa-heart text-siamese-rose"></i>
+                    <span>Special Delivery For You</span>
+                </div>
+                <h1 class="text-4xl sm:text-6xl font-bold font-handwriting text-siamese-seal leading-tight">
+                    Hello, <span class="text-siamese-sapphire font-playful block sm:inline">My Chubs</span>
+                </h1>
+                <p class="text-base sm:text-lg text-siamese-seal/80 max-w-md mx-auto lg:mx-0 leading-relaxed font-medium">
+                    A secret message from Papat & Chaoming :3
+                </p>
+                <div class="pt-3 flex flex-wrap items-center justify-center lg:justify-start gap-4">
+                    <button onclick="scrollToEnvelope()" class="px-7 py-3.5 bg-siamese-seal text-siamese-ivory font-bold rounded-full shadow-lg hover:bg-siamese-darkSeal transform hover:-translate-y-1 active:translate-y-0 transition duration-200 flex items-center gap-3 cursor-pointer">
+                        <i class="fa-solid fa-envelope-open-text text-siamese-rose text-lg"></i>
+                        <span>Read Luv Letter</span>
+                    </button>
+                    <button onclick="scrollToGallery()" class="px-6 py-3.5 bg-white text-siamese-seal font-bold rounded-full shadow border-2 border-siamese-beige hover:bg-siamese-softRose hover:border-siamese-rose transition duration-200 flex items-center gap-2 cursor-pointer">
+                        <i class="fa-solid fa-paw text-siamese-sapphire"></i>
+                        <span>Reasons I Luv You</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Siamese Cat Mascot -->
+            <div class="flex-1 flex justify-center items-center">
+                <div class="relative w-72 h-72 sm:w-80 sm:h-80 bg-siamese-beige/40 rounded-full flex items-center justify-center shadow-inner border-2 border-siamese-beige animate-purr">
+                    <button onclick="catPurrEffect()" title="Click to interact" class="w-full h-full flex items-center justify-center cursor-pointer group focus:outline-none">
+                        <svg class="w-64 h-64 sm:w-72 sm:h-72 transition-transform duration-300 group-hover:scale-105" viewBox="0 0 200 200">
+                            <path d="M 140 150 Q 180 140 170 100 Q 165 80 175 60" stroke="#3a2822" stroke-width="14" stroke-linecap="round" fill="none" class="animate-tailWag" style="transform-origin: 140px 150px;"/>
+                            <ellipse cx="100" cy="145" rx="48" ry="40" fill="#f8f4ec" />
+                            <ellipse cx="100" cy="150" rx="35" ry="25" fill="#f3ece1" />
+                            <ellipse cx="80" cy="180" rx="12" ry="8" fill="#3a2822" />
+                            <ellipse cx="120" cy="180" rx="12" ry="8" fill="#3a2822" />
+                            <polygon points="50,75 30,25 75,45" fill="#3a2822" />
+                            <polygon points="53,70 38,33 70,48" fill="#4a3730" />
+                            <polygon points="150,75 170,25 125,45" fill="#3a2822" />
+                            <polygon points="147,70 162,33 130,48" fill="#4a3730" />
+                            <circle cx="100" cy="85" r="42" fill="#f8f4ec" />
+                            <ellipse cx="100" cy="92" rx="26" ry="20" fill="#3a2822" />
+                            <ellipse cx="86" cy="82" rx="7" ry="9" fill="#1b6b93" class="blue-eye-glow" />
+                            <ellipse cx="114" cy="82" rx="7" ry="9" fill="#1b6b93" class="blue-eye-glow" />
+                            <ellipse cx="86" cy="82" rx="3" ry="6" fill="#111" />
+                            <ellipse cx="114" cy="82" rx="3" ry="6" fill="#111" />
+                            <circle cx="84" cy="79" r="2" fill="#FFF" />
+                            <circle cx="112" cy="79" r="2" fill="#FFF" />
+                            <polygon points="97,93 103,93 100,96" fill="#1f1411" />
+                            <path d="M 100 96 L 100 99 Q 95 102 90 100 M 100 99 Q 105 102 110 100" stroke="#1f1411" stroke-width="1.5" fill="none" />
+                            <path d="M 70 92 L 45 88 M 68 96 L 42 96 M 70 100 L 48 104" stroke="#3a2822" stroke-width="1.5" opacity="0.6"/>
+                            <path d="M 130 92 L 155 88 M 132 96 L 158 96 M 130 100 L 152 104" stroke="#3a2822" stroke-width="1.5" opacity="0.6"/>
+                            <g class="animate-heartBeat" style="transform-origin: 100px 135px;">
+                                <path d="M 100 142 C 100 142 85 128 85 118 C 85 112 90 108 95 108 C 98 108 100 110 100 110 C 100 110 102 108 105 108 C 110 108 115 112 115 118 C 115 128 100 142 100 142 Z" fill="#e8a598" class="rose-glow"/>
+                            </g>
+                        </svg>
+                    </button>
+                    <div id="cat-speech" onclick="catPurrEffect()" class="absolute -top-4 right-0 bg-white text-siamese-seal text-xs font-bold px-3.5 py-1.5 rounded-full shadow-lg border-2 border-siamese-beige flex items-center gap-1.5 cursor-pointer hover:bg-siamese-softRose transition">
+                        <span>Click me yampot!</span> 🐾
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Love Letter Section -->
+        <section id="envelope-section" class="py-12 flex flex-col items-center justify-center border-t border-siamese-beige/60">
+            <div class="text-center mb-8">
+                <span class="text-xs font-extrabold tracking-widest text-siamese-sapphire uppercase">Secret Letter</span>
+                <h2 class="text-3xl sm:text-4xl font-bold font-handwriting text-siamese-seal mt-1">Tap To Unfold My Message:3</h2>
+            </div>
+
+            <div class="w-full max-w-xl px-2">
+                <div id="envelope-card" onclick="toggleEnvelope()" class="bg-siamese-beige/50 hover:bg-siamese-beige/80 rounded-2xl p-6 sm:p-8 cursor-pointer transition-all duration-300 border-2 border-siamese-beige shadow-lg relative min-h-[300px] flex flex-col justify-between group">
+                    <div class="flex justify-between items-center border-b border-siamese-seal/10 pb-3">
+                        <span class="text-xs font-bold text-siamese-seal uppercase flex items-center gap-1.5">
+                            <i class="fa-solid fa-stamp text-siamese-rose"></i> Official Chaomong Express
+                        </span>
+                        <span id="envelope-status-badge" class="text-xs font-extrabold text-siamese-rose bg-white px-3 py-1 rounded-full border border-siamese-rose/30 shadow-sm">
+                            Meow to Open 🐾
+                        </span>
+                    </div>
+
+                    <div id="envelope-closed-content" class="flex flex-col items-center justify-center my-8 py-6">
+                        <div class="w-20 h-20 rounded-full bg-white flex items-center justify-center shadow-md border-2 border-siamese-rose mb-3 group-hover:scale-110 transition duration-300">
+                            <i class="fa-solid fa-heart text-3xl text-siamese-rose animate-pulse"></i>
+                        </div>
+                        <h3 class="font-handwriting text-2xl text-siamese-seal font-bold">To: <span class="text-siamese-sapphire">My Chubs</span></h3>
+                    </div>
+
+                    <div id="envelope-opened-content" class="hidden bg-white p-6 sm:p-8 rounded-xl border border-siamese-beige shadow-inner space-y-4 my-2">
+                        <div class="flex justify-between items-center border-b border-siamese-beige pb-3">
+                            <span class="font-handwriting text-2xl text-siamese-seal font-bold">Dearest My Chubs,</span>
+                            <span class="text-xs font-bold text-siamese-sapphire bg-siamese-softRose px-3 py-1 rounded-full">Forever &amp; Always</span>
+                        </div>
+
+                        <div class="text-sm sm:text-base leading-relaxed text-siamese-seal/90 font-sans whitespace-pre-line my-4">
+Happy 8 months to us! We’re not perfect, and life gets busy, but I wouldn't want to navigate it with anyone else. Thank you for always listening, making me smile when I need it, and staying by my side through everything. I appreciate you more than I usually say out loud. I love you so much! <3
+
+                            Thank you for being my safest home, my sweetest smile, and my forever favorite person. I love you more than words can ever capture!
+                        </div>
+
+                        <div class="pt-4 border-t border-siamese-beige">
+                            <p class="text-xs text-siamese-seal/60 font-semibold">Yours lovingly,</p>
+                            <p class="font-handwriting text-2xl text-siamese-seal font-bold">Your Papat 🐾</p>
+                        </div>
+                    </div>
+
+                    <div class="text-center text-xs text-siamese-seal/50 font-bold pt-2 border-t border-siamese-seal/10">
+                        <span>Tap envelope body to reveal inner letter</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Flip Cards Section -->
+        <section id="gallery-section" class="py-12 border-t border-siamese-beige/60">
+            <div class="text-center mb-10">
+                <span class="text-xs font-extrabold tracking-widest text-siamese-rose uppercase">Whisker Secrets</span>
+                <h2 class="text-3xl sm:text-4xl font-bold font-handwriting text-siamese-seal mt-1">Reasons Why I Love You</h2>
+                <p class="text-xs text-siamese-seal/70 mt-1">Click any card to flip and reveal</p>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                <button onclick="flipCard(this)" class="h-56 perspective-1000 w-full text-left focus:outline-none cursor-pointer group">
+                    <div class="card-inner relative w-full h-full duration-500 transform-style-3d transition-transform shadow-md rounded-2xl border-2 border-siamese-beige group-hover:border-siamese-rose">
+                        <div class="absolute inset-0 w-full h-full bg-white rounded-2xl p-6 flex flex-col justify-between items-center text-center backface-hidden">
+                            <div class="w-12 h-12 rounded-full bg-siamese-softRose flex items-center justify-center text-siamese-rose text-xl shadow-sm">
+                                <i class="fa-solid fa-smile-beam"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-bold text-siamese-seal text-lg">Your Warmest Smile</h3>
+                                <p class="text-xs text-siamese-seal/60 mt-1">Reason #1</p>
+                            </div>
+                            <span class="text-xs font-bold text-siamese-sapphire flex items-center gap-1">Click to flip >.< <i class="fa-solid fa-rotate text-xs"></i></span>
+                        </div>
+                        <div class="absolute inset-0 w-full h-full bg-siamese-seal text-siamese-ivory rounded-2xl p-6 flex flex-col justify-center items-center text-center rotate-y-180 backface-hidden">
+                            <i class="fa-solid fa-heart text-siamese-rose text-2xl mb-2"></i>
+                            <p class="text-sm leading-relaxed font-medium">The way your face lights up whenever you smile melts my heart instantly. You remove the bad happenings everytime!</p>
+                        </div>
+                    </div>
+                </button>
+
+                <button onclick="flipCard(this)" class="h-56 perspective-1000 w-full text-left focus:outline-none cursor-pointer group">
+                    <div class="card-inner relative w-full h-full duration-500 transform-style-3d transition-transform shadow-md rounded-2xl border-2 border-siamese-beige group-hover:border-siamese-rose">
+                        <div class="absolute inset-0 w-full h-full bg-white rounded-2xl p-6 flex flex-col justify-between items-center text-center backface-hidden">
+                            <div class="w-12 h-12 rounded-full bg-blue-50 flex items-center justify-center text-siamese-sapphire text-xl shadow-sm">
+                                <i class="fa-solid fa-hands-holding-heart"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-bold text-siamese-seal text-lg">Your Gentle Heart</h3>
+                                <p class="text-xs text-siamese-seal/60 mt-1">Reason #2</p>
+                            </div>
+                            <span class="text-xs font-bold text-siamese-sapphire flex items-center gap-1">Click to flip >.<<i class="fa-solid fa-rotate text-xs"></i></span>
+                        </div>
+                        <div class="absolute inset-0 w-full h-full bg-siamese-seal text-siamese-ivory rounded-2xl p-6 flex flex-col justify-center items-center text-center rotate-y-180 backface-hidden">
+                            <i class="fa-solid fa-paw text-siamese-rose text-2xl mb-2"></i>
+                            <p class="text-sm leading-relaxed font-medium">Your kindness and sweet affection make me fall in love with you more every single day:P </p>
+                        </div>
+                    </div>
+                </button>
+
+                <button onclick="flipCard(this)" class="h-56 perspective-1000 w-full text-left focus:outline-none cursor-pointer group sm:col-span-2 lg:col-span-1">
+                    <div class="card-inner relative w-full h-full duration-500 transform-style-3d transition-transform shadow-md rounded-2xl border-2 border-siamese-beige group-hover:border-siamese-rose">
+                        <div class="absolute inset-0 w-full h-full bg-white rounded-2xl p-6 flex flex-col justify-between items-center text-center backface-hidden">
+                            <div class="w-12 h-12 rounded-full bg-amber-50 flex items-center justify-center text-amber-500 text-xl shadow-sm">
+                                <i class="fa-solid fa-mug-hot"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-bold text-siamese-seal text-lg">Cozy Cuddle Moments</h3>
+                                <p class="text-xs text-siamese-seal/60 mt-1">Reason #3</p>
+                            </div>
+                            <span class="text-xs font-bold text-siamese-sapphire flex items-center gap-1">Click to flip>.< <i class="fa-solid fa-rotate text-xs"></i></span>
+                        </div>
+                        <div class="absolute inset-0 w-full h-full bg-siamese-seal text-siamese-ivory rounded-2xl p-6 flex flex-col justify-center items-center text-center rotate-y-180 backface-hidden">
+                            <i class="fa-solid fa-star text-amber-300 text-2xl mb-2"></i>
+                            <p class="text-sm leading-relaxed font-medium">Nothing in this world beats cuddling up with you like Chaoming on a quiet, peaceful afternoon.</p>
+                        </div>
+                    </div>
+                </button>
+            </div>
+        </section>
+
+        <!-- Static Photo Gallery Section -->
+        <section class="py-12 border-t border-siamese-beige/60">
+            <div class="text-center mb-10">
+                <span class="text-xs font-extrabold tracking-widest text-siamese-sapphire uppercase">Precious Snaps :D</span>
+                <h2 class="text-3xl sm:text-4xl font-bold font-handwriting text-siamese-seal mt-1">Polaroid Memory Gallery</h2>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-4xl mx-auto">
+                <div class="bg-white p-4 pb-6 rounded-xl shadow-lg border-2 border-siamese-beige transform -rotate-1 hover:rotate-0 transition duration-300">
+                    <div class="h-64 bg-siamese-beige/30 rounded overflow-hidden mb-3 border border-siamese-beige">
+                        <img src="eeeeeeee.jfif" alt="Memory 1" class="w-full h-full object-cover">
+                    </div>
+                    <p class="font-handwriting text-2xl text-center text-siamese-seal font-bold">Sweet Moments 💖</p>
+                </div>
+
+                <div class="bg-white p-4 pb-6 rounded-xl shadow-lg border-2 border-siamese-beige transform rotate-1 hover:rotate-0 transition duration-300">
+                    <div class="h-64 bg-siamese-beige/30 rounded overflow-hidden mb-3 border border-siamese-beige">
+                        <img src="eeeeeee.jfif" alt="Memory 2" class="w-full h-full object-cover">
+                    </div>
+                    <p class="font-handwriting text-2xl text-center text-siamese-seal font-bold">Sparkling Eyes ✨</p>
+                </div>
+
+                <div class="bg-white p-4 pb-6 rounded-xl shadow-lg border-2 border-siamese-beige transform -rotate-1 hover:rotate-0 transition duration-300">
+                    <div class="h-64 bg-siamese-beige/30 rounded overflow-hidden mb-3 border border-siamese-beige">
+                        <img src="eeeee.jfif" alt="Memory 3" class="w-full h-full object-cover">
+                    </div>
+                    <p class="font-handwriting text-2xl text-center text-siamese-seal font-bold">Silly Fun Days 🐾</p>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <script>
+        // Envelope toggle
+        let isEnvelopeOpen = false;
+        function toggleEnvelope() {
+            isEnvelopeOpen = !isEnvelopeOpen;
+            const closedDiv = document.getElementById('envelope-closed-content');
+            const openedDiv = document.getElementById('envelope-opened-content');
+            const badge = document.getElementById('envelope-status-badge');
+            const card = document.getElementById('envelope-card');
+
+            if (isEnvelopeOpen) {
+                closedDiv.classList.add('hidden');
+                openedDiv.classList.remove('hidden');
+                badge.textContent = "Opened 💌";
+                badge.className = "text-xs font-extrabold text-siamese-sapphire bg-siamese-softRose px-3 py-1 rounded-full border border-siamese-sapphire/30 shadow-sm";
+                card.classList.remove('cursor-pointer');
+                createHeartBurst();
+            } else {
+                closedDiv.classList.remove('hidden');
+                openedDiv.classList.add('hidden');
+                badge.textContent = "Meow to Open 🐾";
+                badge.className = "text-xs font-extrabold text-siamese-rose bg-white px-3 py-1 rounded-full border border-siamese-rose/30 shadow-sm";
+                card.classList.add('cursor-pointer');
+            }
+        }
+
+        function scrollToEnvelope() {
+            document.getElementById('envelope-section').scrollIntoView({ behavior: 'smooth' });
+            if (!isEnvelopeOpen) setTimeout(toggleEnvelope, 500);
+        }
+
+        function scrollToGallery() {
+            document.getElementById('gallery-section').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function flipCard(btn) {
+            const inner = btn.querySelector('.card-inner');
+            const isFlipped = inner.style.transform === 'rotateY(180deg)';
+            inner.style.transform = isFlipped ? 'rotateY(0deg)' : 'rotateY(180deg)';
+            createHeartBurst();
+        }
+
+        const purrPhrases = [
+            "Purr-fect love! 🐾",
+            "You make my heart go purr! 💖",
+            "Meow! So sweet! ✨",
+            "Chubs & Papat forever! 😻"
+        ];
+        function catPurrEffect() {
+            const speech = document.getElementById('cat-speech');
+            speech.querySelector('span').textContent = purrPhrases[Math.floor(Math.random() * purrPhrases.length)];
+            createHeartBurst();
+        }
+
+        // Particle Canvas
+        const canvas = document.getElementById('particle-canvas');
+        const ctx = canvas.getContext('2d');
+        let particles = [];
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+
+        function createHeartBurst() {
+            for (let i = 0; i < 12; i++) {
+                particles.push({
+                    x: window.innerWidth / 2 + (Math.random() * 100 - 50),
+                    y: window.innerHeight / 2 + (Math.random() * 100 - 50),
+                    size: Math.random() * 12 + 8,
+                    speedX: Math.random() * 6 - 3,
+                    speedY: Math.random() * -6 - 2,
+                    opacity: 1,
+                    color: Math.random() > 0.5 ? '#e8a598' : '#1b6b93'
+                });
+            }
+        }
+
+        function animateParticles() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            particles.forEach((p, index) => {
+                p.x += p.speedX;
+                p.y += p.speedY;
+                p.opacity -= 0.02;
+
+                if (p.opacity <= 0) {
+                    particles.splice(index, 1);
+                    return;
+                }
+
+                ctx.save();
+                ctx.globalAlpha = p.opacity;
+                ctx.fillStyle = p.color;
+                ctx.font = `${p.size}px sans-serif`;
+                ctx.fillText('♥', p.x, p.y);
+                ctx.restore();
+            });
+            requestAnimationFrame(animateParticles);
+        }
+        animateParticles();
+
+        // Audio Toggle
+        let audioPlaying = false;
+        let audioCtx = null;
+
+        function toggleAudio() {
+            audioPlaying = !audioPlaying;
+            const icon = document.getElementById('audio-icon');
+            if (audioPlaying) {
+                icon.className = "fa-solid fa-volume-high text-siamese-sapphire text-lg animate-pulse";
+                startAmbientSynth();
+            } else {
+                icon.className = "fa-solid fa-music text-siamese-rose text-lg";
+                if (audioCtx) {
+                    audioCtx.close();
+                    audioCtx = null;
+                }
+            }
+        }
+
+        function startAmbientSynth() {
+            try {
+                audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+                const notes = [329.63, 392.00, 440.00, 523.25];
+                let index = 0;
+
+                function playNote() {
+                    if (!audioPlaying || !audioCtx) return;
+                    const osc = audioCtx.createOscillator();
+                    const gain = audioCtx.createGain();
+                    osc.type = 'sine';
+                    osc.frequency.value = notes[index];
+                    index = (index + 1) % notes.length;
+
+                    gain.gain.setValueAtTime(0.05, audioCtx.currentTime);
+                    gain.gain.exponentialRampToValueAtTime(0.0001, audioCtx.currentTime + 3);
+
+                    osc.connect(gain);
+                    gain.connect(audioCtx.destination);
+
+                    osc.start();
+                    osc.stop(audioCtx.currentTime + 3);
+
+                    setTimeout(playNote, 2500);
+                }
+                playNote();
+            } catch (e) {
+                console.log("Audio Context not supported");
+            }
+        }
+    </script>
+</body>
+</html>
